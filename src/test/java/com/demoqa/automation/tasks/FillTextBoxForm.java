@@ -1,6 +1,8 @@
 package com.demoqa.automation.tasks;
 
 import com.demoqa.automation.userinterfaces.TextBoxPage;
+
+// Screenplay
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Clear;
@@ -10,11 +12,13 @@ import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class FillTextBoxForm implements Task {
 
+    // Variables de datos (parametrizadas)
     private final String nombre;
     private final String email;
     private final String direccion1;
     private final String direccion2;
 
+    // Constructor
     public FillTextBoxForm(String nombre, String email, String direccion1, String direccion2) {
         this.nombre = nombre;
         this.email = email;
@@ -22,12 +26,14 @@ public class FillTextBoxForm implements Task {
         this.direccion2 = direccion2;
     }
 
+    // Método estático para instanciar la Task con los datos
     public static FillTextBoxForm with(String nombre, String email, String direccion1, String direccion2) {
         return instrumented(FillTextBoxForm.class, nombre, email, direccion1, direccion2);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        // Llenamos cada campo, limpiando primero
         actor.attemptsTo(
                 Clear.field(TextBoxPage.FULL_NAME),
                 Enter.theValue(nombre).into(TextBoxPage.FULL_NAME),
